@@ -1,6 +1,6 @@
 FROM public.ecr.aws/lambda/nodejs:14
 
-COPY app.js package*.json ./
+COPY /dist/app.js package*.json ./
 
 RUN npm install
 # If you are building your code for production, instead include a package-lock.json file on this directory and use:
