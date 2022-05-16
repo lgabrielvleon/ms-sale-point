@@ -1,0 +1,5 @@
+{
+    "ignore": ["dist/**/*.js", "src/generated/**/*.ts"],
+    "ext": "ts,json,yaml",
+    "exec": "npm run build"
+}

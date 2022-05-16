@@ -1,0 +1,24 @@
+{
+    "entryFile": "src/app.ts",
+    "controllerPathGlobs": ["src/**/*Controller.ts"],
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "spec": {
+        "name": "ms-payments",
+        "description": "Microservicio para la gestión de pagos e integración con pasarelas de pagos.",
+        "version": "1.0.0",
+        "schemes": ["http"],
+        "outputDirectory": "./documentation",
+        "entryFile": "./src/app.ts",
+        "host": "localhost:3000",
+        "controllerPathGlobs": [
+            "./src/**/*Controller.ts"
+        ],
+        "basePath": "/api"
+    },
+    "routes": {
+        "basePath": "/api",
+        "entryFile": "./src/app.ts",
+        "routesDir": "./src/generated",
+        "middleware": "express"
+    }
+}
