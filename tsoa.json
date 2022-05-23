@@ -3,10 +3,10 @@
     "controllerPathGlobs": ["src/**/*Controller.ts"],
     "noImplicitAdditionalProperties": "throw-on-extras",
     "spec": {
-        "name": "ms-payments",
-        "description": "Microservicio para la gestión de pagos e integración con pasarelas de pagos.",
+        "name": "ms-sale-points",
+        "description": "Microservicio para la gestión de puntos de venta en SalvaJama.",
         "version": "1.0.0",
-        "schemes": ["http"],
+        "schemes": ["https"],
         "outputDirectory": "./documentation",
         "entryFile": "./src/app.ts",
         "host": "localhost:3000",

@@ -1,0 +1,208 @@
+{
+	"basePath": "/api",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"CreateSalePointDtoRs": {
+			"properties": {
+				"id": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"CreateSalePointDtoRq": {
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"ubication": {
+					"type": "string"
+				},
+				"address": {
+					"type": "string"
+				},
+				"brandPhoto": {
+					"type": "string"
+				},
+				"descPhoto": {
+					"type": "string"
+				},
+				"product": {
+					"properties": {
+						"description": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"name"
+					],
+					"type": "object"
+				}
+			},
+			"required": [
+				"name",
+				"brandPhoto"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"GetAllSalePointDtoRs": {
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"ubication": {
+					"type": "string"
+				},
+				"address": {
+					"type": "string"
+				},
+				"brandPhoto": {
+					"type": "string"
+				},
+				"descPhoto": {
+					"type": "string"
+				},
+				"product": {
+					"properties": {
+						"description": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"name"
+					],
+					"type": "object"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"brandPhoto"
+			],
+			"type": "object",
+			"additionalProperties": false
+		}
+	},
+	"info": {
+		"title": "ms-sale-points",
+		"version": "1.0.0",
+		"description": "Microservicio para la gestión de puntos de venta en SalvaJama.",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "Lucas Vásquez"
+		}
+	},
+	"paths": {
+		"/sale-point": {
+			"post": {
+				"operationId": "Create",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"201": {
+						"description": "Created",
+						"schema": {
+							"$ref": "#/definitions/CreateSalePointDtoRs"
+						}
+					}
+				},
+				"consumes": [
+					"application/json"
+				],
+				"tags": [
+					"Sale Points"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "bodyRq",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateSalePointDtoRq"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetAll",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/GetAllSalePointDtoRs"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"tags": [
+					"Sale Points"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sale-point/{idSalePoint}": {
+			"get": {
+				"operationId": "GetSalePoint",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/GetAllSalePointDtoRs"
+						}
+					}
+				},
+				"description": "getSalePoint",
+				"tags": [
+					"Sale Points"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idSalePoint",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"host": "localhost:3000",
+	"schemes": [
+		"https"
+	]
+}
