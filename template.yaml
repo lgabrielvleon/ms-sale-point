@@ -1,40 +1,73 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  ms-view-points
-
-  Sample SAM Template for ms-view-points
+  ms-sale-points
   
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
-Globals:
-  Function:
-    Timeout: 120
+Parameters:
+  StageName:
+    Type: String
+    Default: prd
 
 Resources:
-  ViewPointsFunction:
+  SalePointsFunction:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
+      Environment:
+        Variables:
+          REGION: !Ref AWS::Region
+      Policies: 
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SalePointTable
       Events:
-        HelloWorld:
-          Type: HttpApi
+        ApiEvent:
+          Type: Api
           Properties:
-            Path: /hello
-            Method: get
+            RestApiId: !Ref ApiSls
+            Path: /{proxy+}
+            Method: ANY
+        ApiEvent1:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiSls
+            Path: /
+            Method: ANY
+      Tags:
+        app: salvajama
+        environment: !Ref StageName
     Metadata:
       DockerTag: nodejs14.x-v1
       DockerContext: ./
       Dockerfile: Dockerfile
+  ApiSls:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref StageName
+      Cors: "'*'"
+      Tags:
+        app: salvajama
+        environment: !Ref StageName
+  SalePointTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: SalePoint
+      PrimaryKey: 
+        Name: idSalePoint
+        Type: String
+      Tags:
+        app: salvajama
+        environment: !Ref StageName
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
+  SalePoinApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
+    Value: !Sub "https://${ApiSls}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/api/"
+  SalePointsFunction:
     Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+    Value: !GetAtt SalePointsFunction.Arn
+  SalePointsFunctionIamRole:
+    Description: "Implicit IAM Role created for Sale Points function"
+    Value: !GetAtt SalePointsFunctionRole.Arn
