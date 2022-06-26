@@ -14,6 +14,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
+      Timeout: 10
       Environment:
         Variables:
           REGION: !Ref AWS::Region
