@@ -1,9 +1,9 @@
-enum dayOfWeek {
+export enum dayOfWeek {
+    sunday,
     monday,
     tuesday,
     wednesday,
     thursday,
     friday,
-    saturday,
-    sunday
+    saturday
 }
