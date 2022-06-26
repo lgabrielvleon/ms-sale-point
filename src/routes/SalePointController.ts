@@ -48,6 +48,6 @@ export class SalePointsCrontrollers extends Controller {
     @Get('config/product')
     public async GetAllSalePointWithProduct(): Promise<any> {
         let SalePointWithProduct = await SalePointService.GetAllSalePointWithProduct();
-        return SalePointWithProduct;
+        return GetSalePointConverter.toDtoWithProductArray(SalePointWithProduct);
     }
 }

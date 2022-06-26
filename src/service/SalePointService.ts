@@ -5,6 +5,9 @@ import { v4 as uuid } from 'uuid';
 import { ScanCommandInput } from "@aws-sdk/lib-dynamodb";
 import { dayOfWeek } from "util/dto/UtilsDto";
 import moment from "moment-timezone";
+import { ClientAPI } from "../util/ClientAPI";
+import { SalePointAllModelRs } from '../model/SalePointModel';
+import { ConfigOrderModelRs } from "model/OrderConfigModel";
 
 const tableName: string = "SalePoint";
 
@@ -134,7 +137,7 @@ export class SalePointService {
     /**
      * GetAllSalePointWithProduct
      */
-    public static async GetAllSalePointWithProduct(): Promise<any> {
+    public static async GetAllSalePointWithProduct(): Promise<SalePointAllModelRs[]> {
         let url_base_api = 'https://84iw6kecik.execute-api.sa-east-1.amazonaws.com/dev/api/order/config/';
 
         try {
@@ -150,12 +153,12 @@ export class SalePointService {
             let now = moment(date.getTime()).tz("America/Lima");
             let day = moment(now).day();
 
-            let lstSalePoints: RegisterSalePointModel[] = [];
-
+            let lstSalePoints: SalePointAllModelRs[] = [];
+            
             await Promise.all(result.Items.map(
                 async (element) => {
                     let url_api = url_base_api + element.idSalePoint.S + '/day/' + dayOfWeek[day];
-                    /*let res = await fetch(url_api);
+                    let res: APIGenericResponse<ConfigOrderModelRs> = await ClientAPI.getInstance().fetchAPI<ConfigOrderModelRs>('get', url_api);
                     if (res.ok) {
                         lstSalePoints.push({
                             idSalePoint: element.idSalePoint.S,
@@ -166,8 +169,9 @@ export class SalePointService {
                             ubication: element.ubication.S,
                             descriptionProduct: element.descriptionProduct.S,
                             nameProduct: element.nameProduct.S,
+                            configOrder: res.body
                         });
-                    }*/
+                    }
             }));
 
             return lstSalePoints;
