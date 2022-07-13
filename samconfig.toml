@@ -3,10 +3,10 @@ version = 0.1
 [dev.deploy]
 [dev.deploy.parameters]
 stack_name = "ms-sale-point"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-13cd45f5otk50"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-7gr5j6wo8arh"
 s3_prefix = "ms-sale-point"
-region = "sa-east-1"
+region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "StageName=\"dev\""
-image_repositories = ["SalePointsFunction=085711787225.dkr.ecr.sa-east-1.amazonaws.com/mssalepoint018b2e1b/salepointsfunction2d151ff2repo"]
+image_repositories = ["SalePointsFunction=085711787225.dkr.ecr.us-east-1.amazonaws.com/mssalepoint018b2e1b/salepointsfunction2d151ff2repo"]

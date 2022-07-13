@@ -138,7 +138,7 @@ export class SalePointService {
      * GetAllSalePointWithProduct
      */
     public static async GetAllSalePointWithProduct(): Promise<SalePointAllModelRs[]> {
-        let url_base_api = 'https://84iw6kecik.execute-api.sa-east-1.amazonaws.com/dev/api/order/config/';
+        let url_base_api = 'https://le3badnlvc.execute-api.us-east-1.amazonaws.com/dev/api/order/config/';
 
         try {
 
