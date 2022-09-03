@@ -1,10 +1,11 @@
 import { CreateSalePointConverter } from "converter/CreateSalePointConverter";
 import { SalePointService } from "service/SalePointService";
-import { Body, Controller, Get, Path, Post, Route, SuccessResponse, Tags } from "tsoa";
+import { Body, Controller, Get, Path, Post, Query, Route, SuccessResponse, Tags } from "tsoa";
 import { CreateSalePointDtoRq, CreateSalePointDtoRs } from '../dto/CreateSalePointDto';
 import { GetAllSalePointDtoRs } from '../dto/GetAllSalePointDto';
 import { GetAllSalePointConverter } from '../converter/GetAllSalePointConverter';
 import { GetSalePointConverter } from "converter/GetSalePointConverter";
+import { SalePointAllModelRs } from '../model/SalePointModel';
 
 @Tags('Sale Points')
 @Route('sale-point')
@@ -46,8 +47,54 @@ export class SalePointsCrontrollers extends Controller {
      * GetSalePointWithProduct
      */
     @Get('config/product')
-    public async GetAllSalePointWithProduct(): Promise<any> {
+    public async GetAllSalePointWithProduct(
+        @Query() lat?: string,
+        @Query() lng?: string,
+        @Query() ratio?: string
+    ): Promise<any> {
         let SalePointWithProduct = await SalePointService.GetAllSalePointWithProduct();
-        return GetSalePointConverter.toDtoWithProductArray(SalePointWithProduct);
+        if (lat !== undefined && lng !== undefined && ratio !== undefined) {
+            let updateLstSalePoint: SalePointAllModelRs[] = [];
+            SalePointWithProduct.map((item, i) => {
+                if (this.CalculateRatio(parseInt(ratio), item, parseFloat(lat), parseFloat(lng))) {
+                    updateLstSalePoint.push(item);
+                }
+            })
+
+            if (updateLstSalePoint.length>0) {
+                return GetSalePointConverter.toDtoWithProductArray(updateLstSalePoint);
+            }else {
+                return GetSalePointConverter.toDtoWithProductArray(SalePointWithProduct);
+            }
+
+        }else{
+            return GetSalePointConverter.toDtoWithProductArray(SalePointWithProduct);
+        }
+
+    }
+
+    private CalculateRatio(ratio: number, salePoint: SalePointAllModelRs, lat: number, lng: number): boolean {
+        let [lat2S, lng2S] = salePoint.ubication.split(',');
+        let lat2 = parseFloat(lat2S);
+        let lng2 = parseFloat(lng2S);
+        let radiusEarth: number = 6371e3;
+        let theta1 = lat * Math.PI / 180;
+        let theta2 = lat2 * Math.PI / 180;
+        let alphaTheta = (lat2 - lat) * Math.PI / 180;
+        let alphaLambda = (lng2 - lng) * Math.PI / 180;
+
+        let a = Math.sin(alphaTheta / 2) * Math.sin(alphaTheta / 2) +
+            Math.cos(theta1) * Math.cos(theta2) *
+            Math.sin(alphaLambda / 2) * Math.sin(alphaLambda / 2);
+
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        let d = radiusEarth * c; //meters
+        let k = parseInt(d.toFixed(0)) / 1000; //kilometers
+
+        if (k <= ratio) {
+            return true;
+        }
+        return false
     }
 }

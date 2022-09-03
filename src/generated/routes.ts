@@ -135,6 +135,9 @@ export function RegisterRoutes(app: express.Router) {
 
             function SalePointsCrontrollers_GetAllSalePointWithProduct(request: any, response: any, next: any) {
             const args = {
+                    lat: {"in":"query","name":"lat","dataType":"string"},
+                    lng: {"in":"query","name":"lng","dataType":"string"},
+                    ratio: {"in":"query","name":"ratio","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
