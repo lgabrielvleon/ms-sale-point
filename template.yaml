@@ -15,7 +15,7 @@ Resources:
     Properties:
       PackageType: Image
       Timeout: 10
-      MemorySize: 256
+      MemorySize: 512
       Environment:
         Variables:
           REGION: !Ref AWS::Region
