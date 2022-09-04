@@ -1,0 +1,1 @@
+export const CONFIG_PRODUCT_DAY_ENDPOINT = '/config/:idSalePoint/day/:dayOfWeek';

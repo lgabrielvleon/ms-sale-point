@@ -4,6 +4,8 @@
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { SalePointsCrontrollers } from './../routes/SalePointController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { SalePointV2Controller } from './../routes/SalePointV2Controller';
 import type { RequestHandler } from 'express';
 import * as express from 'express';
 
@@ -41,6 +43,30 @@ const models: TsoaRoute.Models = {
             "brandPhoto": {"dataType":"string","required":true},
             "descPhoto": {"dataType":"string"},
             "product": {"dataType":"nestedObjectLiteral","nestedProperties":{"description":{"dataType":"string"},"name":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "localization": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"distance":{"dataType":"string","required":true},"latLng":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "product": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"stock":{"dataType":"double","required":true},"schedule":{"dataType":"string","required":true},"price":{"dataType":"nestedObjectLiteral","nestedProperties":{"amount":{"dataType":"double","required":true},"originalAmount":{"dataType":"double","required":true}},"required":true},"description":{"dataType":"string"},"name":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "GetSalePointConfigProductDtoResponse": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "name": {"dataType":"string","required":true},
+            "localization": {"ref":"localization"},
+            "address": {"dataType":"string"},
+            "brandPhoto": {"dataType":"string","required":true},
+            "descPhoto": {"dataType":"string"},
+            "product": {"ref":"product"},
         },
         "additionalProperties": false,
     },
@@ -151,6 +177,33 @@ export function RegisterRoutes(app: express.Router) {
 
               const promise = controller.GetAllSalePointWithProduct.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/sale-point/2/config/product',
+            ...(fetchMiddlewares<RequestHandler>(SalePointV2Controller)),
+            ...(fetchMiddlewares<RequestHandler>(SalePointV2Controller.prototype.GetSalePointsConfigProduct)),
+
+            function SalePointV2Controller_GetSalePointsConfigProduct(request: any, response: any, next: any) {
+            const args = {
+                    lat: {"in":"query","name":"lat","dataType":"string"},
+                    lng: {"in":"query","name":"lng","dataType":"string"},
+                    ratio: {"in":"query","name":"ratio","dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new SalePointV2Controller();
+
+
+              const promise = controller.GetSalePointsConfigProduct.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
             } catch (err) {
                 return next(err);
             }

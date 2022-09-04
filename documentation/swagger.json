@@ -194,6 +194,88 @@
 					}
 				]
 			}
+		},
+		"/sale-point/config/product": {
+			"get": {
+				"operationId": "GetAllSalePointWithProduct",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"additionalProperties": true
+						}
+					}
+				},
+				"description": "GetSalePointWithProduct",
+				"tags": [
+					"Sale Points"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "lat",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "lng",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "ratio",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/sale-point/2/config/product": {
+			"get": {
+				"operationId": "GetSalePointsConfigProduct",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"additionalProperties": true
+						}
+					}
+				},
+				"description": "GetSalePointsConfigProductDay",
+				"tags": [
+					"Sale Points"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "lat",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "lng",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "ratio",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
 		}
 	},
 	"produces": [
