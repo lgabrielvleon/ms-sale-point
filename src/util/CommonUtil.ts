@@ -11,7 +11,7 @@ export class CommonUtil {
         if (distance<1) {
             distanceLenghtUnitDesc = distance*1000+' m';
         }else{
-            distanceLenghtUnitDesc = distance+' km';
+            distanceLenghtUnitDesc = distance.toFixed(1)+' km';
         }
         return distanceLenghtUnitDesc;
     }
