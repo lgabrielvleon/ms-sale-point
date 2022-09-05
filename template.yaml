@@ -53,7 +53,7 @@ Resources:
   SalePointTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: SalePoint
+      TableName: !Sub "SalePoint_${StageName}"
       PrimaryKey: 
         Name: idSalePoint
         Type: String

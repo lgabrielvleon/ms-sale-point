@@ -8,8 +8,9 @@ import moment from "moment-timezone";
 import { ClientAPI } from "../util/ClientAPI";
 import { SalePointAllModelRs } from '../model/SalePointModel';
 import { ConfigOrderModelRs } from "model/OrderConfigModel";
+import { TABLE_NAME_SALE_POINT } from "util/Configure";
 
-const tableName: string = "SalePoint";
+const tableName: string = TABLE_NAME_SALE_POINT;
 
 /**
  * @author Lucas Vásquez

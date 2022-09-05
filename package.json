@@ -24,7 +24,8 @@
         "build": "npm run generate-routes && tsc && sam build",
         "test": "mocha tests/unit/",
         "start": "sam local start-api -p 3001",
-        "deploy-dev": "npm run build && sam deploy --stack-name ms-sale-point --config-env dev"
+        "deploy-dev": "npm run build && sam deploy --stack-name ms-sale-point --config-env dev",
+        "deploy-prd": "npm run build && sam deploy --stack-name ms-sale-point-prd --config-env prd"
     },
     "devDependencies": {
         "@types/cors": "^2.8.12",

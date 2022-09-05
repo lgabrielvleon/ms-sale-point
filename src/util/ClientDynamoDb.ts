@@ -1,5 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { REGION } from './Configure';
 
-const REGION: string = 'us-east-1';
+const region: string = REGION;
 
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: region });
